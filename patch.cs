@@ -19,8 +19,8 @@ namespace PrisonerTroopConstruction
         public const int TownBoostBonus = 50;
         public const int CastleBoostCost = 250;
         public const int CastleBoostBonus = 20;
-        private static readonly TextObject ArmyConstructionBonusText = new TextObject("{=armycon}Player Army Bonus", (Dictionary<string, object>)null);
-        private static readonly TextObject PrisonerConstructionBonusText = new TextObject("Settlement Prisoner Bonus", (Dictionary<string, object>)null);
+        private static readonly TextObject ArmyConstructionBonusText = new TextObject("{=armycon}Army Bonus", (Dictionary<string, object>)null);
+        private static readonly TextObject PrisonerConstructionBonusText = new TextObject("Dungeon Labour Bonus", (Dictionary<string, object>)null);
 
         private static void Postfix(ref ExplainedNumber __result, Town town, bool includeDescriptions = false)
         {
@@ -28,13 +28,13 @@ namespace PrisonerTroopConstruction
 
             if (settings.PrisonerConstructionEnable)
             {
-                float prisonerpowerBonus = 0.0f;
-                if (town.Settlement != null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null)
+                if (town.OwnerClan == Hero.MainHero.Clan)
                 {
-                    prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;
+                    float prisonerBonus = 0.0f;
+                    prisonerBonus = town.Settlement.Party.NumberOfPrisoners;
+                    float totalPrisonerBonus = prisonerBonus / SubModule.PrisonersPerBrick;
+                    __result.Add(totalPrisonerBonus, PrisonerConstructionBonusText);
                 }
-                float prisonerBonus = (prisonerpowerBonus / SubModule.PrisonersPerBrick);
-                __result.Add(prisonerBonus, PrisonerConstructionBonusText, null);
             }
             
             if (settings.TroopConstructionEnable)
