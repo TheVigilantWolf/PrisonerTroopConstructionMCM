@@ -9,6 +9,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Party;
 using MCM.Abstractions.Base.Global;
+using System.Linq;
 
 namespace PrisonerTroopConstruction
 {
@@ -31,12 +32,10 @@ namespace PrisonerTroopConstruction
                 if (town.OwnerClan == Hero.MainHero.Clan)
                 {
                     float prisonerBonus = 0.0f;
-                    prisonerBonus = town.Settlement.Party.NumberOfPrisoners;
-                    float totalPrisonerBonus = prisonerBonus / SubModule.PrisonersPerBrick;
+                    float totalPrisonerBonus = (float)town.Settlement.Party.PrisonRoster.ToFlattenedRoster().Select(r => r.Troop.Tier * 0.25 * SubModule.PrisonersPerBrick).Sum();
                     __result.Add(totalPrisonerBonus, PrisonerConstructionBonusText);
                 }
             }
-            
             if (settings.TroopConstructionEnable)
             {  
                 if (Hero.MainHero.CurrentSettlement == town.Settlement && town.OwnerClan == Hero.MainHero.Clan)
@@ -45,7 +44,7 @@ namespace PrisonerTroopConstruction
                     float manpowerBonus = 0.0f; // Declare the variable here
                     if (MobileParty.MainParty.Army == null)
                     {
-                        manpowerBonus = MobileParty.MainParty.Party.NumberOfHealthyMembers;
+                        float manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
                     }
                     else
                     {
