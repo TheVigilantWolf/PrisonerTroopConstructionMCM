@@ -44,7 +44,7 @@ namespace PrisonerTroopConstruction
                     float manpowerBonus = 0.0f; // Declare the variable here
                     if (MobileParty.MainParty.Army == null)
                     {
-                        float manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
+                        manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
                     }
                     else
                     {
