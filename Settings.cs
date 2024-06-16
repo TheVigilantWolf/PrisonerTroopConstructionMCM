@@ -10,9 +10,9 @@ namespace PrisonerTroopConstruction
         [SettingPropertyGroup("Troop Construction")]
         public bool TroopConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Troop Construction Multiplier", 0, 10, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 2, RequireRestart = false)]
+        [SettingPropertyInteger("Troop Construction Multiplier", 0, 1, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 2, RequireRestart = false)]
         [SettingPropertyGroup("Troop Construction")]
-        public float MenPerBrick { get; set; } = 4;
+        public float MenPerBrick { get; set; } = 0.5f;
 
         [SettingPropertyFloatingInteger("Construction Bonus Per Skill Point", 0, 1, HintText = "The amount of bonus construction points per skill point your parties assigned engineer has.", Order = 3, RequireRestart = false)]
         [SettingPropertyGroup("Troop Construction")]
@@ -22,7 +22,7 @@ namespace PrisonerTroopConstruction
         [SettingPropertyGroup("Prisoner Construction")]
         public bool PrisonerConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Prisoner Tier Multiplier", 0, 1, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 5, RequireRestart = false)]
+        [SettingPropertyFloatingInteger("Prisoner Tier Multiplier", 0, 1, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 5, RequireRestart = false)]
         [SettingPropertyGroup("Prisoner Construction")]
         public float PrisonersPerBrick { get; set; } = 0.5f;
 
