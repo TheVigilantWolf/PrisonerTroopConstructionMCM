@@ -12,7 +12,7 @@ namespace PrisonerTroopConstruction
 {
     public class SubModule : MBSubModuleBase
     {
-        public static float MenPerBrick => Settings.Instance?.MenPerBrick ?? 4.0f;
+        public static float MenPerBrick => Settings.Instance?.MenPerBrick ?? 0.5f;
         public static float BricksPerEngineerSkillPoint => Settings.Instance?.BricksPerEngineerSkillPoint ?? 0.25f;
         public static float PrisonersPerBrick => Settings.Instance?.PrisonersPerBrick ?? 0.5f;
 

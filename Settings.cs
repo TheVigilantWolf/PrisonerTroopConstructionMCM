@@ -10,7 +10,7 @@ namespace PrisonerTroopConstruction
         [SettingPropertyGroup("Troop Construction")]
         public bool TroopConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Troop Construction Multiplier", 0, 1, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 2, RequireRestart = false)]
+        [SettingPropertyFloatingInteger("Troop Construction Multiplier", 0, 1, HintText = "Multiplies Troop Tier * 0.25 * This Number. This will significantly increase or decrease the bonus given.", Order = 2, RequireRestart = false)]
         [SettingPropertyGroup("Troop Construction")]
         public float MenPerBrick { get; set; } = 0.5f;
 

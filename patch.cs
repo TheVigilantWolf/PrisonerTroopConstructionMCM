@@ -48,11 +48,11 @@ namespace PrisonerTroopConstruction
                     }
                     else
                     {
-                        manpowerBonus += (float)Hero.MainHero.PartyBelongedTo.Army.LeaderParty.AttachedParties.Where(attachedParty => attachedParty.CurrentSettlement == Hero.MainHero.CurrentSettlement).Select(armyParty =>armyParty.Party.MemberRoster.ToFlattenedRoster().Where(troopRoster => !troopRoster.IsWounded).Select(troopRoster => troopRoster.Troop.Tier * .25 * SubModule.MenPerBrick).Sum()).Sum();
+                        manpowerBonus = (float)Hero.MainHero.PartyBelongedTo.Army.LeaderParty.AttachedParties.Where(attachedParty => attachedParty.CurrentSettlement == Hero.MainHero.CurrentSettlement).Select(armyParty =>armyParty.Party.MemberRoster.ToFlattenedRoster().Where(troopRoster => !troopRoster.IsWounded).Select(troopRoster => troopRoster.Troop.Tier * .25 * SubModule.MenPerBrick).Sum()).Sum();
                         
                         if (MobileParty.MainParty.CurrentSettlement == Hero.MainHero.CurrentSettlement)
                         {
-                            manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
+                            manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
                         }
                     }
                     float totalArmyBonus = armyEngineerBonus + ((manpowerBonus -1) / SubModule.MenPerBrick);
