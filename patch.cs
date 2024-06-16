@@ -8,6 +8,7 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem.Party;
+using MCM.Abstractions.Base.Global;
 
 namespace PrisonerTroopConstruction
 {
@@ -25,7 +26,8 @@ namespace PrisonerTroopConstruction
         {
             {
                 float prisonerpowerBonus = 0.0f;
-                if (town.Settlement != null && town.Settlement.Party != null && town.OwnerClan == Hero.MainHero.Clan)
+                bool PrisonerConstructionEnable = GlobalSettings<Settings>.Instance.PrisonerConstructionEnable;
+                if (town.Settlement == null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null && PrisonerConstructionEnable)
                 {
                     prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;  
                 }
