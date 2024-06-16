@@ -44,7 +44,7 @@ namespace PrisonerTroopConstruction
                     float manpowerBonus = 0.0f; // Declare the variable here
                     if (MobileParty.MainParty.Army == null)
                     {
-                        manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
+                        manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace PrisonerTroopConstruction
                         
                         if (MobileParty.MainParty.CurrentSettlement == Hero.MainHero.CurrentSettlement)
                         {
-                            manpowerBonus = (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
+                            manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
                         }
                     }
                     float totalArmyBonus = armyEngineerBonus + ((manpowerBonus -1) / SubModule.MenPerBrick);
