@@ -24,15 +24,21 @@ namespace PrisonerTroopConstruction
 
         private static void Postfix(ref ExplainedNumber __result, Town town, bool includeDescriptions = false)
         {
+            var settings = GlobalSettings<Settings>.Instance;
+
+            if (settings.PrisonerConstructionEnable)
             {
                 float prisonerpowerBonus = 0.0f;
                 if (town.Settlement == null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null)
                 {
-                    prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;  
+                    prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;
                 }
                 float prisonerBonus = prisonerpowerBonus / SubModule.PrisonersPerBrick;
                 __result.Add(prisonerBonus, PrisonerConstructionBonusText, null);
-
+            }
+            
+            if (settings.TroopConstructionEnable)
+            {  
                 if (Hero.MainHero.CurrentSettlement == town.Settlement && town.OwnerClan == Hero.MainHero.Clan)
                 {
                     float armyEngineerBonus = GetArmyEngineerBonus();
@@ -56,8 +62,8 @@ namespace PrisonerTroopConstruction
                     float totalArmyBonus = armyEngineerBonus + (manpowerBonus / SubModule.MenPerBrick);
                     __result.Add(totalArmyBonus, ArmyConstructionBonusText, null);
                 }
-                __result.LimitMin(0.0f);
             }
+            __result.LimitMin(0.0f);
         }
         private static float GetArmyEngineerBonus()
         {
