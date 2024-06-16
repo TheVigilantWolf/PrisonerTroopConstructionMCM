@@ -12,7 +12,7 @@ namespace PrisonerTroopConstruction
 
         [SettingPropertyInteger("Men Per Brick", 1, 100, Order = 2, RequireRestart = false)]
         [SettingPropertyGroup("Troop Construction")]
-        public float MenPerBrick { get; set; } = 4f;
+        public float MenPerBrick { get; set; } = 4;
 
         [SettingPropertyBool("Prisoner Construction Bonus", IsToggle = true, Order = 3, RequireRestart = false)]
         [SettingPropertyGroup("Prisoner Construction")]
@@ -20,13 +20,13 @@ namespace PrisonerTroopConstruction
 
         [SettingPropertyInteger("Prisoners Per Brick", 1, 100, Order = 4, RequireRestart = false)]
         [SettingPropertyGroup("Prisoner Construction")]
-        public float PrisonersPerBrick { get; set; } = 10f;
+        public float PrisonersPerBrick { get; set; } = 10;
 
         [SettingPropertyBool("Engineer Construction Bonus", IsToggle = true, Order = 5, RequireRestart = false)]
         [SettingPropertyGroup("Party Engineer Skill Boost")]
         public bool EngineerConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Construction Bonus Per Skill Point", 0.25, 1, Order = 6, RequireRestart = false)]
+        [SettingPropertyFloatingInteger("Construction Bonus Per Skill Point", 0.25f, 1, Order = 6, RequireRestart = false)]
         [SettingPropertyGroup("Party Engineer Skill Boost")]
         public float BricksPerEngineerSkillPoint { get; set; } = 0.25f;
     }

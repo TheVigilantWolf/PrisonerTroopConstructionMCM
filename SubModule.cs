@@ -12,9 +12,9 @@ namespace PrisonerTroopConstruction
 {
     public class SubModule : MBSubModuleBase
     {
-        public static float MenPerBrick => Settings.Instance?.MenPerBrick ?? 4.0;
-        public static float BricksPerEngineerSkillPoint => Settings.Instance?.BricksPerEngineerSkillPoint ?? 0.25;
-        public static float PrisonersPerBrick => Settings.Instance?.PrisonersPerBrick ?? 10;
+        public static float MenPerBrick => Settings.Instance?.MenPerBrick ?? 4.0f;
+        public static float BricksPerEngineerSkillPoint => Settings.Instance?.BricksPerEngineerSkillPoint ?? 0.25f;
+        public static float PrisonersPerBrick => Settings.Instance?.PrisonersPerBrick ?? 10f;
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot() => base.OnBeforeInitialModuleScreenSetAsRoot();
 
