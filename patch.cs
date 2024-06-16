@@ -20,7 +20,7 @@ namespace PrisonerTroopConstruction
         public const int CastleBoostCost = 250;
         public const int CastleBoostBonus = 20;
         private static readonly TextObject ArmyConstructionBonusText = new TextObject("{=armycon}Army Bonus", (Dictionary<string, object>)null);
-        private static readonly TextObject PrisonerConstructionBonusText = new TextObject("Dungeon Labour Bonus", (Dictionary<string, object>)null);
+        private static readonly TextObject PrisonerConstructionBonusText = new TextObject("Dungeon Bonus", (Dictionary<string, object>)null);
 
         private static void Postfix(ref ExplainedNumber __result, Town town, bool includeDescriptions = false)
         {
@@ -59,7 +59,7 @@ namespace PrisonerTroopConstruction
                             manpowerBonus += MobileParty.MainParty.Party.NumberOfHealthyMembers;
                         }
                     }
-                    float totalArmyBonus = armyEngineerBonus + (manpowerBonus / SubModule.MenPerBrick);
+                    float totalArmyBonus = armyEngineerBonus + ((manpowerBonus -1) / SubModule.MenPerBrick);
                     __result.Add(totalArmyBonus, ArmyConstructionBonusText, null);
                 }
             }

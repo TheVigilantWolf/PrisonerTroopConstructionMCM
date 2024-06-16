@@ -14,7 +14,7 @@ namespace PrisonerTroopConstruction
     {
         public static float MenPerBrick => Settings.Instance?.MenPerBrick ?? 4.0f;
         public static float BricksPerEngineerSkillPoint => Settings.Instance?.BricksPerEngineerSkillPoint ?? 0.25f;
-        public static float PrisonersPerBrick => Settings.Instance?.PrisonersPerBrick ?? 10f;
+        public static float PrisonersPerBrick => Settings.Instance?.PrisonersPerBrick ?? 4.0f;
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot() => base.OnBeforeInitialModuleScreenSetAsRoot();
 
