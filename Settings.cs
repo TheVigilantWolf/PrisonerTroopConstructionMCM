@@ -29,5 +29,9 @@ namespace PrisonerTroopConstruction
         [SettingPropertyFloatingInteger("Construction Bonus Per Skill Point", 0.25f, 1, Order = 6, RequireRestart = false)]
         [SettingPropertyGroup("Party Engineer Skill Boost")]
         public float BricksPerEngineerSkillPoint { get; set; } = 0.25f;
+
+        public override string Id => "ConstructionBonuses";
+
+        public override string DisplayName => "Construction Bonuses";
     }
 }
