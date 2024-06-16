@@ -29,7 +29,7 @@ namespace PrisonerTroopConstruction
             if (settings.PrisonerConstructionEnable)
             {
                 float prisonerpowerBonus = 0.0f;
-                if (town.Settlement == null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null)
+                if (town.Settlement != null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null)
                 {
                     prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;
                 }
