@@ -10,25 +10,21 @@ namespace PrisonerTroopConstruction
         [SettingPropertyGroup("Troop Construction")]
         public bool TroopConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Men Per Brick", 1, 100, Order = 2, RequireRestart = false)]
+        [SettingPropertyInteger("Men Per Brick", 1, 100, HintText = "The amount of troops per bonus point to construction.", Order = 2, RequireRestart = false)]
         [SettingPropertyGroup("Troop Construction")]
         public float MenPerBrick { get; set; } = 4;
 
-        [SettingPropertyBool("Prisoner Construction Bonus", IsToggle = true, Order = 3, RequireRestart = false)]
+        [SettingPropertyFloatingInteger("Construction Bonus Per Skill Point", 0.25f, 1, HintText = "The amount of bonus construction points per skill point your parties assigned engineer has.", Order = 3, RequireRestart = false)]
+        [SettingPropertyGroup("Troop Construction")]
+        public float BricksPerEngineerSkillPoint { get; set; } = 0.25f;
+
+        [SettingPropertyBool("Prisoner Construction Bonus", IsToggle = true, Order = 4, RequireRestart = false)]
         [SettingPropertyGroup("Prisoner Construction")]
         public bool PrisonerConstructionEnable { get; set; } = true;
 
-        [SettingPropertyInteger("Prisoners Per Brick", 1, 100, Order = 4, RequireRestart = false)]
+        [SettingPropertyInteger("Prisoners Per Brick", 1, 100, HintText = "The amount of prisoners per bonus point to construction.", Order = 5, RequireRestart = false)]
         [SettingPropertyGroup("Prisoner Construction")]
         public float PrisonersPerBrick { get; set; } = 10;
-
-        [SettingPropertyBool("Engineer Construction Bonus", IsToggle = true, Order = 5, RequireRestart = false)]
-        [SettingPropertyGroup("Party Engineer Skill Boost")]
-        public bool EngineerConstructionEnable { get; set; } = true;
-
-        [SettingPropertyFloatingInteger("Construction Bonus Per Skill Point", 0.25f, 1, Order = 6, RequireRestart = false)]
-        [SettingPropertyGroup("Party Engineer Skill Boost")]
-        public float BricksPerEngineerSkillPoint { get; set; } = 0.25f;
 
         public override string Id => "ConstructionBonuses";
 

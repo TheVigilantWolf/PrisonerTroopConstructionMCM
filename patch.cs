@@ -26,8 +26,7 @@ namespace PrisonerTroopConstruction
         {
             {
                 float prisonerpowerBonus = 0.0f;
-                bool PrisonerConstructionEnable = GlobalSettings<Settings>.Instance.PrisonerConstructionEnable;
-                if (town.Settlement == null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null && PrisonerConstructionEnable)
+                if (town.Settlement == null && town.OwnerClan != Hero.MainHero.Clan && town.Settlement.Party != null)
                 {
                     prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;  
                 }
