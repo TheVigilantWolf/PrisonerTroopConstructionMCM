@@ -33,7 +33,7 @@ namespace PrisonerTroopConstruction
                 {
                     prisonerpowerBonus = town.Settlement.Party.NumberOfPrisoners;
                 }
-                float prisonerBonus = prisonerpowerBonus / SubModule.PrisonersPerBrick;
+                float prisonerBonus = (prisonerpowerBonus / SubModule.PrisonersPerBrick);
                 __result.Add(prisonerBonus, PrisonerConstructionBonusText, null);
             }
             
