@@ -6,6 +6,7 @@ using System.Reflection;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using HarmonyLib;
+using MCM.Abstractions.Base.Global;
 
 #nullable disable
 namespace PrisonerTroopConstruction
@@ -21,6 +22,10 @@ namespace PrisonerTroopConstruction
         protected override void OnGameStart(Game game, IGameStarter starterObject)
         {
             base.OnGameStart(game, starterObject);
+            if (GlobalSettings<Settings>.Instance == null)
+            {
+                throw new Exception("Failed to load settings.");
+            }
         }
 
         protected override void OnSubModuleLoad()

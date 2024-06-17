@@ -20,7 +20,7 @@ namespace PrisonerTroopConstruction
         public const int TownBoostBonus = 50;
         public const int CastleBoostCost = 250;
         public const int CastleBoostBonus = 20;
-        private static readonly TextObject ArmyConstructionBonusText = new TextObject("{=armycon}Army Bonus", (Dictionary<string, object>)null);
+        private static readonly TextObject ArmyConstructionBonusText = new TextObject("{=armycon}Troop Bonus", (Dictionary<string, object>)null);
         private static readonly TextObject PrisonerConstructionBonusText = new TextObject("Dungeon Bonus", (Dictionary<string, object>)null);
 
         private static void Postfix(ref ExplainedNumber __result, Town town, bool includeDescriptions = false)
@@ -32,7 +32,9 @@ namespace PrisonerTroopConstruction
                 if (town.OwnerClan == Hero.MainHero.Clan)
                 {
                     float prisonerBonus = 0.0f;
-                    float totalPrisonerBonus = (float)town.Settlement.Party.PrisonRoster.ToFlattenedRoster().Select(r => r.Troop.Tier * 0.25 * SubModule.PrisonersPerBrick).Sum();
+                    float totalPrisonerBonus = (float)town.Settlement.Party.PrisonRoster.ToFlattenedRoster()
+                          .Select(r => r.Troop.Tier * 0.25 * SubModule.PrisonersPerBrick)
+                          .Sum();
                     __result.Add(totalPrisonerBonus, PrisonerConstructionBonusText);
                 }
             }
@@ -42,20 +44,30 @@ namespace PrisonerTroopConstruction
                 {
                     float armyEngineerBonus = GetArmyEngineerBonus();
                     float manpowerBonus = 0.0f; // Declare the variable here
-                    if (MobileParty.MainParty.Army == null)
+                    float manpowerBonusArmy = 0.0f;
+
+                    //Calculates manpower bonus for the main party
+                    manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster()
+                    .Where(r => !r.IsWounded)
+                    .Select(r => r.Troop.Tier * 0.25)
+                    .Sum();
+
+                    //Calculate manpower bonus for attached parties
+                    if (MobileParty.MainParty.Army != null)
                     {
-                        manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
-                    }
-                    else
-                    {
-                        manpowerBonus = (float)Hero.MainHero.PartyBelongedTo.Army.LeaderParty.AttachedParties.Where(attachedParty => attachedParty.CurrentSettlement == Hero.MainHero.CurrentSettlement).Select(armyParty =>armyParty.Party.MemberRoster.ToFlattenedRoster().Where(troopRoster => !troopRoster.IsWounded).Select(troopRoster => troopRoster.Troop.Tier * .25 * SubModule.MenPerBrick).Sum()).Sum();
-                        
-                        if (MobileParty.MainParty.CurrentSettlement == Hero.MainHero.CurrentSettlement)
+                        foreach (var attachedParty in MobileParty.MainParty.Army.LeaderParty.AttachedParties)
                         {
-                            manpowerBonus += (float)MobileParty.MainParty.Party.MemberRoster.ToFlattenedRoster().Where(r => !r.IsWounded).Select(r => r.Troop.Tier * 0.25 * SubModule.MenPerBrick).Sum();
+                            if (attachedParty.CurrentSettlement == Hero.MainHero.CurrentSettlement)
+                            {
+                                
+                                manpowerBonusArmy += (float)attachedParty.Party.MemberRoster.ToFlattenedRoster()
+                                .Where(r => !r.IsWounded)
+                                .Select(r => r.Troop.Tier * 0.25)
+                                .Sum();
+                            }
                         }
                     }
-                    float totalArmyBonus = armyEngineerBonus + ((manpowerBonus -1) / SubModule.MenPerBrick);
+                    float totalArmyBonus = armyEngineerBonus + (manpowerBonus * SubModule.MenPerBrick);
                     __result.Add(totalArmyBonus, ArmyConstructionBonusText, null);
                 }
             }
@@ -63,9 +75,12 @@ namespace PrisonerTroopConstruction
         }
         private static float GetArmyEngineerBonus()
         {
+            var settings = GlobalSettings<Settings>.Instance;
             MobileParty mainParty = MobileParty.MainParty;
-            if (mainParty.EffectiveEngineer == null)
+
+            if (mainParty.EffectiveEngineer == null || !settings.EngineerBonusEnable)
                 return 0.0f;
+            
             float num = mainParty.EffectiveEngineer.GetSkillValue(DefaultSkills.Engineering);
             if (num > 300.0f)
                 num = 300f;
